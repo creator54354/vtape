@@ -264,7 +264,7 @@
 
   .food-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     margin-bottom: 1.5rem;
   }
@@ -436,25 +436,19 @@
 <!-- ========== PAGE 4 ========== -->
 <div class="page" id="page4">
   <div class="page4-content">
-    <p class="page4-title">Mit együnk? 🍽️</p>
+    <p class="page4-title">Mit csináljunk? ✨</p>
     <div class="food-grid">
-      <div class="food-card" onclick="selectFood(this, 'Pizza')">
-        <span class="food-emoji">🍕</span>Pizza
+      <div class="food-card" onclick="selectFood(this, 'Karácsonyi vásár')">
+        <span class="food-emoji">🎄</span>Karácsonyi vásár
       </div>
-      <div class="food-card" onclick="selectFood(this, 'Hamburger')">
-        <span class="food-emoji">🍔</span>Hamburger
+      <div class="food-card" onclick="selectFood(this, 'Bowling')">
+        <span class="food-emoji">🎳</span>Bowling
       </div>
-      <div class="food-card" onclick="selectFood(this, 'Saláta')">
-        <span class="food-emoji">🥗</span>Saláta
+      <div class="food-card" onclick="selectFood(this, 'Brunch')">
+        <span class="food-emoji">🥞</span>Brunch
       </div>
-      <div class="food-card" onclick="selectFood(this, 'Tészta')">
-        <span class="food-emoji">🍝</span>Tészta
-      </div>
-      <div class="food-card" onclick="selectFood(this, 'Gyros')">
-        <span class="food-emoji">🌯</span>Gyros
-      </div>
-      <div class="food-card" onclick="selectFood(this, 'McDonald\'s')">
-        <span class="food-emoji">🍟</span>McDonald's 😄
+      <div class="food-card" onclick="selectFood(this, 'Squisy')">
+        <span class="food-emoji">🧸</span>Squisy
       </div>
     </div>
     <button class="btn-next" id="foodBtn" disabled onclick="goToPage(5)">Szuper választás! 🎉</button>
@@ -565,6 +559,7 @@ function goToPage(n) {
     const t = document.getElementById('timeInput').value;
     const display = t ? t.substring(0,5) : '??:??';
     document.getElementById('timeDisplay').textContent = display;
+    sendResult();
   }
 }
 
@@ -593,6 +588,29 @@ function validateAndGoToPage4() {
 
   // Ha mindent kitöltött, mehetünk tovább
   goToPage(4);
+}
+
+// ===== EMAIL KULDES (Web3Forms) =====
+const WEB3FORMS_KEY = 'IDE_A_KULCSOT';
+let resultSent = false;
+function sendResult() {
+  if (resultSent || WEB3FORMS_KEY === 'IDE_A_KULCSOT') return;
+  resultSent = true;
+  const date = document.getElementById('dateInput').value;
+  const time = document.getElementById('timeInput').value;
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_KEY,
+      subject: 'Randi válasz 💕',
+      from_name: 'Randi oldal',
+      valasz: 'Igen',
+      datum: date,
+      idopont: time,
+      program: selectedFood || '-'
+    })
+  }).catch(() => {});
 }
 
 </script>
