@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egy fontos kérdés 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #fff0f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== PAGES ===== */
+  .page {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .page.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* ===== PAGE 1 ===== */
+  #page1 { background: #fff5f8; }
+
+  .petals-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -60px;
+    font-size: 28px;
+    animation: fall linear infinite;
+    opacity: 0.75;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-60px) rotate(0deg) translateX(0px); opacity: 0.8; }
+    50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+  }
+
+  .page1-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255,255,255,0.72);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(255,150,180,0.18);
+    max-width: 480px;
+    width: 90%;
+    backdrop-filter: blur(6px);
+  }
+
+  .gif-placeholder {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /* background: linear-gradient(135deg, #ffd6e7 0%, #ffb3cc 100%); */
+    margin: 0 auto 1.5rem;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    font-size: 64px;
+    box-shadow: 0 4px 20px rgba(255,120,160,0.25);
+    overflow: hidden;
+  }
+
+  .gif-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .question-text {
+    font-family: cursive;
+    font-size: 2rem;
+    color: #080808;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+  /* .question-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #d4527a;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  } */
+
+
+  /* A gombsor: fix magasságú terület, ahol a Nem gomb ugrálhat */
+  .btn-area {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin-top: 0.5rem;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #ff6b9d, #ff4081);
+    color: white;
+    border: none;
+    padding: 0.85rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.15rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(255,64,129,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% - 80px), -50%);
+  }
+  .btn-yes:hover { box-shadow: 0 6px 24px rgba(255,64,129,0.45); transform: translate(calc(-50% - 80px), calc(-50% - 2px)) scale(1.05); }
+  .btn-yes:active { transform: translate(calc(-50% - 80px), -50%) scale(0.97); }
+
+  .btn-no {
+    background: #ffd6e7;
+    color: #d4527a;
+    border: 2px solid #ffb3cc;
+    padding: 0.85rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.15rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + 80px), -50%);
+    transition: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  /* ===== PAGE 2 ===== */
+  #page2 { background: linear-gradient(160deg, #fff0f5 0%, #ffe4ef 100%); }
+
+  .page2-content {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255,255,255,0.8);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(255,150,180,0.15);
+    max-width: 480px;
+    width: 90%;
+    backdrop-filter: blur(4px);
+  }
+
+  .page2-content .gif-placeholder {
+    width: 150px;
+    height: 150px;
+    font-size: 56px;
+  }
+
+  .page2-title {
+    font-family: cursive;
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 0.75rem;
+  }
+
+  .page2-sub {
+    font-size: 0.95rem;
+    color: #e8a0b8;
+    font-style: italic;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ===== PAGE 3 ===== */
+  #page3 { background: linear-gradient(160deg, #fff5f8 0%, #ffe9f2 100%); }
+
+  .page3-content {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255,255,255,0.82);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(255,150,180,0.15);
+    max-width: 480px;
+    width: 90%;
+  }
+
+  .page3-title {
+    font-family: cursive;
+    font-size: 1.7rem;
+    color: black;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+
+  .input-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #c0608a;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ffd6e7;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    background: #fff8fb;
+    color: #7a3050;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-group input:focus { border-color: #ff6b9d; }
+
+  /* ===== PAGE 4 ===== */
+  #page4 { background: linear-gradient(160deg, #fff0f5 0%, #ffe4ef 100%); }
+
+  .page4-content {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255,255,255,0.82);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(255,150,180,0.15);
+    max-width: 520px;
+    width: 90%;
+  }
+
+  .page4-title {
+    font-family:  cursive;
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 1.5rem;
+  }
+
+  /* EZ az erdeti beálitás minden fekete szovegnél (szin, stilus)
+  .page4-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #d4527a;
+    margin-bottom: 1.5rem;
+  } */
+
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .food-card {
+    background: #fff0f5;
+    border: 2.5px solid #ffd6e7;
+    border-radius: 16px;
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #c0608a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .food-card .food-emoji { font-size: 2rem; }
+  .food-card:hover { transform: translateY(-3px); border-color: #ff6b9d; background: #fff5f8; box-shadow: 0 4px 16px rgba(255,100,150,0.18); }
+  .food-card.selected {
+    background: linear-gradient(135deg, #ff6b9d22, #ff408122);
+    border-color: #ff4081;
+    color: #d4527a;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(255,64,129,0.25);
+  }
+
+  /* ===== PAGE 5 ===== */
+  #page5 { background: linear-gradient(160deg, #fff5f8 0%, #ffe9f2 100%); }
+
+  .page5-content {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255,255,255,0.82);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(255,150,180,0.15);
+    max-width: 480px;
+    width: 90%;
+  }
+
+  .gif-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd6e7 0%, #ffb3cc 100%);
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    box-shadow: 0 4px 28px rgba(255,120,160,0.3);
+    overflow: hidden;
+    /* border: 4px solid #ffb3cc; */
+  }
+
+  .gif-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .page5-text {
+    font-family:  cursive;
+    font-size: 1.65rem;
+    color: black;
+    line-height: 1.5;
+  }
+
+  /* ===== SHARED BUTTON ===== */
+  .btn-next {
+    background: linear-gradient(135deg, #ff6b9d, #ff4081);
+    color: white;
+    border: none;
+    padding: 0.85rem 2.2rem;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(255,64,129,0.3);
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-next:hover { transform: scale(1.05); box-shadow: 0 6px 22px rgba(255,64,129,0.4); }
+  .btn-next:disabled { opacity: 0; pointer-events: none; }
+
+  /* ===== HEARTS DECORATION ===== */
+  .floating-hearts {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+
+  .fheart {
+    position: absolute;
+    bottom: -40px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(0) scale(0.8); opacity: 0.7; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+  }
+
+  /* ===== PAGE TRANSITION ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > * { animation: fadeIn 0.5s ease both; }
+</style>
+</head>
+<body>
+
+<!-- ========== PAGE 1 ========== -->
+<div class="page active" id="page1">
+  <div class="petals-container" id="petals"></div>
+  <div class="page1-content">
+    <div class="gif-placeholder" id="gif1">
+      <img class="gif-placeholder" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3a3hqMTBkbmo2c2xsenVzcGNqc2EydTJvdjd4YW92ZGt1YXJ6amQyciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/vFKqnCdLPNOKc/giphy.gif" alt="cute gif">
+      
+    </div>
+    <p class="question-text">Eljössz velem randizni? 🌸</p>
+  </div>
+  <div class="btn-area" id="btnArea">
+    <button class="btn-yes" onclick="goToPage(2)">Igen 💕</button>
+    <button class="btn-no" id="noBtn">Nem 🙈</button>
+  </div>
+</div>
+
+<!-- ========== PAGE 2 ========== -->
+<div class="page" id="page2">
+  <div class="floating-hearts" id="hearts2"></div>
+  <div class="page2-content">
+    <div class="gif-placeholder" id="gif2">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3loMzdncnhtMHBuZ2VrMjVhdTdhMmQzb3dxZ2JoZXBybXdlajVleiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/T70hpBP1L0N7U0jtkq/giphy.gif" alt="surprised gif">
+      
+    </div>
+    <p class="page2-title">Várjunk csak… tényleg igent mondtál?? 💓</p>
+    <p class="page2-sub">már arra készültem, hogy nemet mondasz…</p>
+    <button class="btn-next" onclick="goToPage(3)">Rendben, akkor lássuk 🌷</button>
+  </div>
+</div>
+
+<!-- ========== PAGE 3 ========== -->
+<div class="page" id="page3">
+  <div class="page3-content">
+    <p class="page3-title">Szóval… mikor vagy szabad? 📅</p>
+    <div class="input-group">
+      <div>
+        <label>Dátum</label>
+        <input type="date" id="dateInput">
+      </div>
+      <div>
+        <label>Időpont</label>
+        <input type="time" id="timeInput">
+      </div>
+    </div>
+    <button class="btn-next" onclick="validateAndGoToPage4()">De izgalmas → ✨</button>
+  </div>
+</div>
+
+<!-- ========== PAGE 4 ========== -->
+<div class="page" id="page4">
+  <div class="page4-content">
+    <p class="page4-title">Mit együnk? 🍽️</p>
+    <div class="food-grid">
+      <div class="food-card" onclick="selectFood(this, 'Pizza')">
+        <span class="food-emoji">🍕</span>Pizza
+      </div>
+      <div class="food-card" onclick="selectFood(this, 'Hamburger')">
+        <span class="food-emoji">🍔</span>Hamburger
+      </div>
+      <div class="food-card" onclick="selectFood(this, 'Saláta')">
+        <span class="food-emoji">🥗</span>Saláta
+      </div>
+      <div class="food-card" onclick="selectFood(this, 'Tészta')">
+        <span class="food-emoji">🍝</span>Tészta
+      </div>
+      <div class="food-card" onclick="selectFood(this, 'Gyros')">
+        <span class="food-emoji">🌯</span>Gyros
+      </div>
+      <div class="food-card" onclick="selectFood(this, 'McDonald\'s')">
+        <span class="food-emoji">🍟</span>McDonald's 😄
+      </div>
+    </div>
+    <button class="btn-next" id="foodBtn" disabled onclick="goToPage(5)">Szuper választás! 🎉</button>
+  </div>
+</div>
+
+<!-- ========== PAGE 5 ========== -->
+<div class="page" id="page5">
+  <div class="floating-hearts" id="hearts5"></div>
+  <div class="page5-content">
+    <div class="gif-circle" id="gif5">
+      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dDAwaDk1eXdqaGx2NmdlNXpoeXVwODJvNG51MnoyZDVyZmQ1a3I5bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gY9LPsDoysUt2Hlr7b/giphy.gif" alt="happy gif">
+      
+    </div>
+    <p class="page5-text" id="finalText">
+      Örülök, hogy nem mondtál nemet.<br>
+      <span id="timeDisplay"></span> re legyél kész!<br>
+      Megyek érted 🚗💕
+    </p>
+  </div>
+</div>
+
+<script>
+// ===== FALLING PETALS =====
+(function() {
+  const c = document.getElementById('petals');
+  const emojis = ['🌸','🌺','🌷','💮','🏵️'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (5 + Math.random() * 7) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.fontSize = (18 + Math.random() * 18) + 'px';
+    c.appendChild(p);
+  }
+})();
+
+// ===== NO BUTTON ESCAPE =====
+(function() {
+  const btn = document.getElementById('noBtn');
+  const area = document.getElementById('btnArea');
+  let clicks = 0;
+  const messages = ['Nem 🙈', 'Szia! 👋', 'Azért próbálod?', 'Ez nem fog sikerülni 😆', 'Nem 🙅'];
+
+  function moveBtn(e) {
+    const aRect = area.getBoundingClientRect();
+    const btnW = btn.offsetWidth;
+    const btnH = btn.offsetHeight;
+    const pad = 8;
+    const maxX = aRect.width - btnW - pad;
+    const maxY = aRect.height - btnH - pad;
+
+    let cx = 9999, cy = 9999;
+    if (e) {
+      cx = (e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 9999)) - aRect.left;
+      cy = (e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 9999)) - aRect.top;
+    }
+
+    let nx, ny, tries = 0;
+    do {
+      nx = pad + Math.random() * maxX;
+      ny = pad + Math.random() * maxY;
+      tries++;
+    } while (tries < 30 && Math.abs(nx - cx) < btnW + 20 && Math.abs(ny - cy) < btnH + 20);
+
+    btn.style.position = 'absolute';
+    btn.style.left = nx + 'px';
+    btn.style.top  = ny + 'px';
+    btn.style.transform = 'none';
+  }
+
+  btn.addEventListener('mouseover', moveBtn);
+  btn.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(e); });
+  btn.addEventListener('click', (e) => {
+    clicks++;
+    btn.textContent = messages[Math.min(clicks, messages.length - 1)];
+    moveBtn(e);
+  });
+})();
+
+// ===== FLOATING HEARTS =====
+function spawnHearts(containerId) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  const emojis = ['💕','💗','💓','💖','❤️','🩷'];
+  for (let i = 0; i < 14; i++) {
+    const h = document.createElement('div');
+    h.className = 'fheart';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.animationDuration = (4 + Math.random() * 6) + 's';
+    h.style.animationDelay = (Math.random() * 5) + 's';
+    h.style.fontSize = (14 + Math.random() * 14) + 'px';
+    c.appendChild(h);
+  }
+}
+
+// ===== PAGE NAVIGATION =====
+function goToPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page' + n).classList.add('active');
+
+  if (n === 2) spawnHearts('hearts2');
+  if (n === 5) {
+    spawnHearts('hearts5');
+    const t = document.getElementById('timeInput').value;
+    const display = t ? t.substring(0,5) : '??:??';
+    document.getElementById('timeDisplay').textContent = display;
+  }
+}
+
+// ===== FOOD SELECTION =====
+let selectedFood = null;
+function selectFood(el, name) {
+  document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedFood = name;
+  const btn = document.getElementById('foodBtn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
+}
+
+
+function validateAndGoToPage4() {
+  const dateInput = document.getElementById('dateInput').value;
+  const timeInput = document.getElementById('timeInput').value;
+
+  // Ha bármelyik üres, megbökjük a felhasználót egy figyelmeztetéssel
+  if (!dateInput || !timeInput) {
+    alert("Kérlek, válassz ki egy dátumot és egy időpontot is! (Mostmár nincs vissza út! Hihi) 📅💖");
+    return; // Megállítja a futást, nem engedi át a 4-es oldalra
+  }
+
+  // Ha mindent kitöltött, mehetünk tovább
+  goToPage(4);
+}
+
+</script>
+</body>
+</html>
